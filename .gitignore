@@ -8,3 +8,5 @@ npm-debug.*
 /server/.env
 /web-client/.env
 /react-native-client/.env
+node_modules/
+
