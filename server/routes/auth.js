@@ -3,6 +3,10 @@ let authRouter = express.Router();
 
 /* GET home page. */
 authRouter.get('/signup', (req, res, next) => {
+
+  let { email, password } = req.body;
+  
+
   res.send(`<h1>signup</h1>
             <a href='/auth/login'>login</a>
             <a href='/'>index</a>

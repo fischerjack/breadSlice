@@ -5,3 +5,6 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+/server/.env
+/web-client/.env
+/react-native-client/.env
