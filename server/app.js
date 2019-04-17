@@ -1,16 +1,23 @@
 require('dotenv').config();
 
-let createError = require('http-errors');
-let express = require('express');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
-let hbs = require('hbs');
-let indexRouter = require('./routes/index');
-let authRouter = require('./routes/auth');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+const config = require('./config');
+const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
 
-var app = express();
-app.set('view engine', 'hbs');
+
+//CONNECTING TO MONGODB
+mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+//STARTING EXPRESS
+const app = express();
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
@@ -26,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//ROUTES
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 
